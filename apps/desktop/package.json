@@ -1,0 +1,98 @@
+{
+  "name": "neuro-harness-desktop",
+  "productName": "Neuro Harness",
+  "version": "0.6.0",
+  "description": "App desktop do Neuro Harness (macOS Apple Silicon e Windows). Construído sobre o DeepSeek Harness.",
+  "license": "MIT",
+  "author": "Ramon Ribeiro <monrars1995> (https://github.com/monrars1995)",
+  "homepage": "https://harness.neuros.my",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "sync": "node scripts/sync.js",
+    "start": "npm run sync && electron .",
+    "pack": "npm run sync && electron-builder --dir",
+    "dist": "npm run sync && electron-builder --publish never",
+    "dist:mac": "npm run sync && electron-builder --mac dmg --arm64 --publish never",
+    "dist:win": "npm run sync && electron-builder --win nsis --x64 --publish never"
+  },
+  "devDependencies": {
+    "@electron/notarize": "^3.1.2",
+    "electron": "44.9.3",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "io.goldneuron.neuroharness",
+    "productName": "Neuro Harness",
+    "copyright": "Copyright © 2026 Ramon Ribeiro. Construído sobre o DeepSeek Harness (MIT, © DeepSeek).",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "splash.html",
+      "package.json",
+      "vendor/lib/**",
+      "vendor/package.json"
+    ],
+    "asarUnpack": [
+      "vendor/lib/**",
+      "vendor/package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "vendor/plugins",
+        "to": "plugins"
+      },
+      {
+        "from": "vendor/NOTICE",
+        "to": "NOTICE"
+      },
+      {
+        "from": "vendor/LICENSE",
+        "to": "LICENSE"
+      }
+    ],
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.video",
+      "icon": "build/icon.png",
+      "identity": "-",
+      "darkModeSupport": true,
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false
+    },
+    "dmg": {
+      "title": "Neuro Harness ${version}"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "Neuro Harness",
+      "artifactName": "Neuro-Harness-Setup-${version}.${ext}"
+    },
+    "artifactName": "Neuro-Harness-${version}-${arch}.${ext}",
+    "afterSign": "scripts/notarize.cjs"
+  }
+}

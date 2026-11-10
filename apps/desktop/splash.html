@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:">
+<title>Neuro Harness</title>
+<style>
+  :root { color-scheme: light dark; --ink: light-dark(#15171F, #ECEEF6); --muted: light-dark(#6B7186, #9AA0B4); --node: light-dark(#5A46F0, #8F7DFF); --bg: light-dark(#F6F7FB, #121319); --err: light-dark(#C2410C, #FB923C); }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font: 14px/1.45 -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif; -webkit-app-region: drag; user-select: none; }
+  main { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 0 36px; box-sizing: border-box; text-align: center; }
+  .lockup { display: flex; align-items: center; gap: 12px; }
+  .name { font-size: 26px; letter-spacing: -0.03em; }
+  .name b { font-weight: 700; } .name span { color: var(--muted); }
+  #status { color: var(--muted); min-height: 1.4em; max-width: 480px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar { width: 180px; height: 3px; border-radius: 3px; background: color-mix(in srgb, var(--muted) 25%, transparent); overflow: hidden; }
+  .bar i { display: block; width: 40%; height: 100%; background: var(--node); border-radius: 3px; animation: slide 1.4s ease-in-out infinite; }
+  @keyframes slide { 0% { transform: translateX(-100%) } 100% { transform: translateX(250%) } }
+  #error { display: none; color: var(--err); white-space: pre-wrap; text-align: left; font: 12px/1.45 ui-monospace, Menlo, Consolas, monospace; max-height: 120px; overflow: auto; -webkit-app-region: no-drag; user-select: text; }
+  .actions { display: none; gap: 10px; -webkit-app-region: no-drag; }
+  button { font: inherit; padding: 6px 16px; border-radius: 8px; border: 1px solid color-mix(in srgb, var(--muted) 40%, transparent); background: transparent; color: var(--ink); cursor: pointer; }
+  button.primary { background: var(--node); border-color: var(--node); color: #fff; }
+  .credit { position: fixed; bottom: 12px; font-size: 11px; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <div class="lockup">
+    <svg width="44" height="44" viewBox="4.95 6.75 21 21" aria-hidden="true"><path d="M9 21.6V16a7 7 0 0 1 14 0v9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="24.4" r="3.1" fill="var(--node)"/></svg>
+    <div class="name"><b>neuro</b> <span>harness</span></div>
+  </div>
+  <div class="bar" id="bar"><i></i></div>
+  <div id="status">Abrindo...</div>
+  <div id="deps" style="display:none;-webkit-app-region:no-drag;text-align:center">
+    <div style="margin-bottom:8px">Para funcionar, o Neuro Harness ainda precisa de:</div>
+    <ul id="depsList" style="list-style:none;padding:0;margin:0 0 12px;color:var(--muted)"></ul>
+    <button class="primary" id="installDeps">Instalar o que falta</button>
+    <div style="font-size:11px;color:var(--muted);margin-top:8px">Abre uma janela do Terminal com o instalador. Pode pedir a senha do computador e o login no GitHub.</div>
+  </div>
+  <div id="error"></div>
+  <div class="actions" id="actions"><button class="primary" id="retry">Tentar de novo</button><button id="quit">Sair</button></div>
+  <div class="credit">Construído sobre o DeepSeek Harness</div>
+</main>
+<script>
+  const $ = (id) => document.getElementById(id)
+  window.neuro.onStatus((m) => { $('status').textContent = m })
+  window.neuro.onError((m) => { $('error').textContent = m; $('error').style.display = 'block'; $('actions').style.display = 'flex'; $('bar').style.display = 'none'; $('status').textContent = 'Não foi possível abrir o Neuro Harness.' })
+  $('retry').onclick = () => { $('error').style.display = 'none'; $('actions').style.display = 'none'; $('bar').style.display = 'block'; window.neuro.retry() }
+  $('quit').onclick = () => window.neuro.quit()
+  const showDeps = (list) => { $('deps').style.display = 'block'; $('bar').style.display = 'none'; $('depsList').innerHTML = ''; for (const l of list) { const li = document.createElement('li'); li.textContent = '• ' + l; $('depsList').appendChild(li) } }
+  window.neuro.onDeps((list) => { showDeps(list); $('status').textContent = 'Falta pouco.' })
+  window.neuro.onWaiting((list) => { showDeps(list); $('installDeps').style.display = 'none'; $('bar').style.display = 'block' })
+  $('installDeps').onclick = () => { $('installDeps').style.display = 'none'; $('bar').style.display = 'block'; window.neuro.installDeps() }
+</script>
+</body>
+</html>

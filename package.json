@@ -1,0 +1,39 @@
+{
+  "name": "neuro-harness",
+  "version": "0.6.0",
+  "description": "Neuro Harness: distribuição do DeepSeek Harness com o neuro-mv-edit, marca própria, pt-BR e app desktop para macOS (Apple Silicon) e Windows.",
+  "license": "MIT",
+  "author": "Ramon Ribeiro <monrars1995> (https://github.com/monrars1995)",
+  "homepage": "https://harness.neuros.my",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monrars1995/oneuros-harness.git"
+  },
+  "private": true,
+  "bin": {
+    "neuro-harness": "lib/cli.js"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "plugins",
+    "skills",
+    "claude-code",
+    ".claude-plugin",
+    "profile",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "scripts": {
+    "check": "node scripts/check.js",
+    "claude:sync": "node scripts/claude-sync.js",
+    "brand": "python3 plugins/neuro-harness-brand/scripts/build-brand.py && cp plugins/neuro-harness-brand/assets/neuro-harness-lockup-dark.svg plugins/neuro-harness-brand/assets/neuro-harness-lockup-light.svg plugins/neuro-harness-brand/assets/neuro-harness-icon-dark.svg assets/",
+    "locale": "python3 plugins/neuro-harness-pt-br/scripts/build-locale.py",
+    "locale:check": "python3 plugins/neuro-harness-pt-br/scripts/build-locale.py --check"
+  }
+}

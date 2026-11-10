@@ -1,0 +1,5 @@
+# neuro-harness-brand: insere a identidade visual do Neuro Harness. O perfil desliga o `ui-brand-official`
+# (marca do DeepSeek Harness), para as duas não disputarem os mesmos espaços da interface.
+- insert:
+    - id: neuro-harness-brand
+      name: neuro-harness-brand

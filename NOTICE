@@ -1,0 +1,20 @@
+Neuro Harness
+Copyright (c) 2026 Ramon Ribeiro (GitHub @monrars1995 · Instagram @monrars · @goldneuron.io)
+
+O Neuro Harness é uma distribuição construída sobre o DeepSeek Harness. Ele não é um produto oficial
+da DeepSeek nem é endossado por ela. "DeepSeek Harness" é marca registrada da DeepSeek.
+
+Este projeto usa, sem modificar, ou parte de:
+
+- DeepSeek Harness — https://github.com/deepseek-ai/deepseek-harness
+  Licença MIT (alguns pacotes sob BSD-3-Clause). Copyright (c) 2026 DeepSeek.
+  Instalado numa versão fixa (0.2.1-alpha.2) a partir do npm (@deepseek-ai/dsh).
+- dsh-superagent-prototype — https://github.com/deepseek-ai/dsh-superagent-prototype
+  Licença MIT. Copyright (c) DeepSeek. Base do bundle neuro-mv-superagent.
+- Cordis — https://github.com/cordiverse/cordis — Licença MIT (incluído no DeepSeek Harness).
+- pi-ai (@earendil-works/pi-ai) — provedores de modelo usados pelo DeepSeek Harness; licença do pacote no npm.
+- Electron — https://www.electronjs.org — Licença MIT (app desktop).
+- electron-builder — https://www.electron.build — Licença MIT (empacotamento do app desktop).
+
+Os textos em pt-BR da interface (plugins/neuro-harness-pt-br) são traduções dos textos em inglês do
+DeepSeek Harness e seguem a licença MIT dele.

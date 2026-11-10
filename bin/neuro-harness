@@ -1,0 +1,4 @@
+#!/bin/sh
+# neuro-harness: CLI da distribuição Neuro Harness
+DIR="$(cd "$(dirname "$0")" && pwd -P)"
+exec node "$DIR/../lib/cli.js" "$@"

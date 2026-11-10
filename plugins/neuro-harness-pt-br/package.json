@@ -1,0 +1,33 @@
+{
+  "name": "neuro-harness-pt-br",
+  "version": "0.1.0",
+  "description": "Português do Brasil para toda a interface do Neuro Harness, como idioma padrão. Pacote de idioma sobre o sistema de idiomas do DeepSeek Harness.",
+  "license": "MIT",
+  "author": "Ramon Ribeiro (monrars1995)",
+  "private": true,
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "i18n",
+    "cordis.patch.yml",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-locale"
+      ]
+    },
+    "manifestVersion": 1
+  }
+}
