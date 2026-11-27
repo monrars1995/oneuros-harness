@@ -1,6 +1,6 @@
 {
   "name": "neuro-harness",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Neuro Harness: distribuição do DeepSeek Harness com o neuro-mv-edit, marca própria, pt-BR e app desktop para macOS (Apple Silicon) e Windows.",
   "license": "MIT",
   "author": "Ramon Ribeiro <monrars1995> (https://github.com/monrars1995)",

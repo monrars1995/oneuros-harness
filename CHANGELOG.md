@@ -2,6 +2,16 @@
 
 O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/), e o projeto usa [Versionamento Semântico](https://semver.org/lang/pt-BR/). A CLI e o app desktop compartilham a mesma versão.
 
+## [0.7.0] — 2026-11-27
+
+### Adicionado
+- **`neuro-harness biblioteca exportar | importar`:** leva perfis, temas, estilos e o banco de áudio (`~/.neuro-mv-edit/audio_bank`) para outro computador num `.tgz` (`~/Neuro/exportacoes/neuro-biblioteca-<data>.tgz`). Sem memória, chaves ou dados de campanhas. A importação não sobrescreve o que já existe, a não ser com `--sobrescrever`.
+- **`neuro-harness preparar`:** deixa a edição de vídeo pronta de antemão (motor Remotion, navegador do render, CLI do HyperFrames, skills de apoio e fontes), em vez de baixar tudo na primeira edição.
+- **Instalador:** `--biblioteca <arquivo>` (importa uma biblioteca exportada) e `--preparar-video` (roda o `preparar`); no Windows, `-Biblioteca` e `-PrepararVideo`.
+
+### Corrigido
+- **App antigo voltava o motor para uma versão velha.** O app desktop rodava a instalação embutida nele a cada abertura; um app 0.4 repunha o motor neuro-mv-edit 1.8.0 por cima do 1.10.0 instalado pelo CLI (as sessões do painel perdiam a exportação em 4K). Agora o app usa o núcleo instalado em `~/.neuro-harness/src` quando ele é mais novo que o embutido, e o `setup` nunca rebaixa o motor sozinho (trocar de versão é com `neuro-harness engine <versão>`). O perfil do Harness passa a apontar para o motor em uso.
+
 ## [0.6.0] — 2026-11-10
 
 ### Mudado

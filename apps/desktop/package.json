@@ -1,7 +1,7 @@
 {
   "name": "neuro-harness-desktop",
   "productName": "Neuro Harness",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "App desktop do Neuro Harness (macOS Apple Silicon e Windows). Construído sobre o DeepSeek Harness.",
   "license": "MIT",
   "author": "Ramon Ribeiro <monrars1995> (https://github.com/monrars1995)",

@@ -9,7 +9,7 @@ let fail = 0
 const ok = (msg) => console.log(`  ✅ ${msg}`)
 const bad = (msg) => { console.log(`  ❌ ${msg}`); fail++ }
 
-const js = ['lib/harness.js', 'lib/credentials.js', 'lib/cli.js', 'lib/claude.js', 'scripts/claude-sync.js', 'apps/desktop/main.js', 'apps/desktop/preload.js', 'apps/desktop/scripts/sync.js']
+const js = ['lib/harness.js', 'lib/credentials.js', 'lib/cli.js', 'lib/claude.js', 'lib/biblioteca.js', 'scripts/claude-sync.js', 'apps/desktop/main.js', 'apps/desktop/preload.js', 'apps/desktop/scripts/sync.js']
 for (const dir of fs.readdirSync(path.join(ROOT, 'plugins'))) {
   for (const f of ['lib/index.js', 'lib/client.js']) if (fs.existsSync(path.join(ROOT, 'plugins', dir, f))) js.push(`plugins/${dir}/${f}`)
 }

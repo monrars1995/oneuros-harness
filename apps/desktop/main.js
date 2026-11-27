@@ -8,10 +8,29 @@ const fs = require('fs')
 const { fork, spawnSync } = require('child_process')
 
 const IS_MAC = process.platform === 'darwin'
-const LIB = app.isPackaged
+const BUNDLED_LIB = app.isPackaged
   ? path.join(process.resourcesPath, 'app.asar.unpacked', 'vendor', 'lib')
   : fs.existsSync(path.join(__dirname, 'vendor', 'lib')) ? path.join(__dirname, 'vendor', 'lib') : path.join(__dirname, '..', '..', 'lib')
-const PLUGINS = app.isPackaged ? path.join(process.resourcesPath, 'plugins') : path.join(__dirname, '..', '..', 'plugins')
+const BUNDLED_PLUGINS = app.isPackaged ? path.join(process.resourcesPath, 'plugins') : path.join(__dirname, '..', '..', 'plugins')
+
+// O núcleo instalado pelo CLI (~/.neuro-harness/src) é atualizado sem trocar o app. Se ele for mais novo que o
+// embutido, o app usa o dele: um app antigo nunca volta o motor ou os plugins para versões velhas.
+const semver = (v) => String(v || '0').split(/[.-]/).slice(0, 3).map((n) => parseInt(n, 10) || 0)
+const cmpVer = (a, b) => { const x = semver(a), y = semver(b); for (let i = 0; i < 3; i++) if (x[i] !== y[i]) return x[i] - y[i]; return 0 }
+const verOf = (pkgDir) => { try { return JSON.parse(fs.readFileSync(path.join(pkgDir, 'package.json'), 'utf8')).version } catch { return null } }
+function pickCore() {
+  const home = process.env.NEURO_HARNESS_HOME || path.join(require('os').homedir(), '.neuro-harness')
+  const src = path.join(home, 'src')
+  const installed = verOf(src)
+  const bundled = verOf(path.dirname(BUNDLED_LIB))
+  if (installed && fs.existsSync(path.join(src, 'lib', 'cli.js')) && (!bundled || cmpVer(installed, bundled) >= 0)) {
+    return { lib: path.join(src, 'lib'), plugins: path.join(src, 'plugins'), version: installed }
+  }
+  return { lib: BUNDLED_LIB, plugins: BUNDLED_PLUGINS, version: bundled }
+}
+const CORE = pickCore()
+const LIB = CORE.lib
+const PLUGINS = CORE.plugins
 
 // Apps abertos pelo Finder recebem um PATH mínimo: herda o do shell de login (Homebrew, nvm, etc.).
 function adoptLoginPath() {

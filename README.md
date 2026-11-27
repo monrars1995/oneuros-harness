@@ -91,6 +91,8 @@ Ao sair, ele para o Harness que subiu.
 | `neuro-harness entrar [--chave nh_…]` | Liga o computador à sua conta Neuro: instala e atualiza sem GitHub |
 | `neuro-harness conta` · `sair` | Mostra a conta conectada · apaga a chave deste computador |
 | `neuro-harness claude [instalar\|status\|remover] [--dry-run]` | Leva os especialistas para o Claude Code: marketplace local `neuro-harness` com os plugins `neuro-harness`, `neuro-mv-edit` e `neuro-ads-manager`, nas versões fixadas, sem GitHub. Veja [docs/claude-code.md](docs/claude-code.md) |
+| `neuro-harness biblioteca exportar` · `importar <arquivo>` | Leva perfis, temas, estilos e o banco de áudio para outro computador |
+| `neuro-harness preparar` | Deixa a edição de vídeo pronta de antemão: motor, navegador do render, skills de apoio e fontes |
 | `neuro-harness version` | Versão da distribuição |
 
 **Variáveis de ambiente:**
